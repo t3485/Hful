@@ -1,35 +1,30 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hful.Module
 {
-    internal class ModuleRunner
+    internal class ModuleRunner<T>
     {
-        private List<HfulModule> _instance;
+        private readonly List<HfulModule> _instance;
 
-        public void ConfigureServices<T>(IServiceCollection services, IConfiguration configuration)
+        public ModuleRunner()
+        {
+            _instance = GetModules(typeof(T)).Select(x => (HfulModule?)Activator.CreateInstance(x)).Where(x => x != null).ToList();
+        }
+
+        public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             var context = new HfulModuleContext()
             {
                 Services = services,
                 Configuration = configuration
             };
-            foreach (var item in GetModuleInstance(typeof(T)))
+            foreach (var item in _instance)
             {
                 item.ConfigureServices(context);
             }
-        }
-
-        private IEnumerable<HfulModule> GetModuleInstance(Type type)
-        {
-            return _instance ??= GetModules(type).Select(x => (HfulModule)Activator.CreateInstance(x)).ToList();
         }
 
         private IEnumerable<Type> GetModules(Type type)

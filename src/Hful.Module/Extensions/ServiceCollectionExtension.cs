@@ -13,7 +13,7 @@ namespace Hful.Module.Extensions
     {
         public static void AddModule<T>(this IServiceCollection services, IConfiguration configuration)
         {
-            new ModuleRunner().ConfigureServices<T>(services, configuration);
+            new ModuleRunner<T>().ConfigureServices(services, configuration);
         }
     }
 }
