@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Domain", "src\Hful.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Domain.Shared", "src\Hful.Domain.Shared\Hful.Domain.Shared.csproj", "{AB578EBE-BE47-41A7-8DD8-0AE8EE5C3FDD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Module", "src\Hful.Module\Hful.Module.csproj", "{0FA760FD-90B1-4D5A-A55E-710B7BBE2086}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Iam", "src\Hful.Iam\Hful.Iam.csproj", "{A9A78899-EA30-4551-9505-7D88CCA7FFE4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Iam.Api", "src\Hful.Iam.Api\Hful.Iam.Api.csproj", "{DE6FC5CA-AF6C-4D48-A4A5-1A525799E353}"
@@ -53,10 +51,6 @@ Global
 		{AB578EBE-BE47-41A7-8DD8-0AE8EE5C3FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB578EBE-BE47-41A7-8DD8-0AE8EE5C3FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB578EBE-BE47-41A7-8DD8-0AE8EE5C3FDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FA760FD-90B1-4D5A-A55E-710B7BBE2086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FA760FD-90B1-4D5A-A55E-710B7BBE2086}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FA760FD-90B1-4D5A-A55E-710B7BBE2086}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FA760FD-90B1-4D5A-A55E-710B7BBE2086}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9A78899-EA30-4551-9505-7D88CCA7FFE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9A78899-EA30-4551-9505-7D88CCA7FFE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9A78899-EA30-4551-9505-7D88CCA7FFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
