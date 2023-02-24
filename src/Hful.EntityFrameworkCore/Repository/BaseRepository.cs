@@ -25,8 +25,15 @@ namespace Hful.EntityFrameworkCore.Repository
 
         public async Task SaveAsync(T entity)
         {
-            CheckAndSetId(entity);
-            await context.Set<T>().AddAsync(entity);
+            if (entity.Id == Guid.Empty)
+            {
+                CheckAndSetId(entity);
+                await context.Set<T>().AddAsync(entity);
+            }
+            else
+            {
+                context.Set<T>().Update(entity);
+            }
             await context.SaveChangesAsync();
         }
 
