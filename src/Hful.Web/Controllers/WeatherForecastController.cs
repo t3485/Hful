@@ -19,7 +19,6 @@ namespace Hful.Web.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "PowerUser")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {

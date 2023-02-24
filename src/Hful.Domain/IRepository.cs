@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hful.Domain
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class
     {
+        IQueryable<T> AsQueryable();
 
+        Task SaveAsync(T entity);
+
+        Task DeleteAsync(Guid id);
+
+        Task SaveAsync(List<T> entities);
     }
 }

@@ -4,9 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hful.Application.Contracts\Hful.Application.Contracts.csproj" />
     <ProjectReference Include="..\Hful.Iam\Hful.Iam.csproj" />
   </ItemGroup>
 
