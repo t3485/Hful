@@ -1,10 +1,10 @@
-﻿using Hful.EntityFrameworkCore;
+﻿using Hful.Core;
+using Hful.EntityFrameworkCore;
 using Hful.Iam.Api;
-using Hful.Module;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+
 using System.Text;
 
 namespace Hful.Web

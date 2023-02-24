@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Hful.Module
+﻿namespace Hful.Core
 {
     public abstract class HfulModule
     {

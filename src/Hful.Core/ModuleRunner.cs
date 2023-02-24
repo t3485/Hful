@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using System.Reflection;
 
-namespace Hful.Module
+namespace Hful.Core
 {
     internal class ModuleRunner<T>
     {

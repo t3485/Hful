@@ -14,10 +14,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hful.Application\Hful.Application.csproj" />
+    <ProjectReference Include="..\Hful.Core\Hful.Core.csproj" />
     <ProjectReference Include="..\Hful.Domain\Hful.Domain.csproj" />
     <ProjectReference Include="..\Hful.EntityFrameworkCore\Hful.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Hful.Iam.Api\Hful.Iam.Api.csproj" />
-    <ProjectReference Include="..\Hful.Module\Hful.Module.csproj" />
   </ItemGroup>
 
   <ItemGroup>

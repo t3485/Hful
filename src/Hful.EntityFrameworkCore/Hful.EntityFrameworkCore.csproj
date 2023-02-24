@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Hful.Domain\Hful.Domain.csproj" />
     <ProjectReference Include="..\Hful.Iam\Hful.Iam.csproj" />
-    <ProjectReference Include="..\Hful.Module\Hful.Module.csproj" />
   </ItemGroup>
 
 </Project>

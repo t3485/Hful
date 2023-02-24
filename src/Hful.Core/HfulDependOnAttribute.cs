@@ -1,4 +1,4 @@
-﻿namespace Hful.Module
+﻿namespace Hful.Core
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class HfulDependOnAttribute : Attribute

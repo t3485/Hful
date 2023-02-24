@@ -1,4 +1,4 @@
-﻿using Hful.Module;
+﻿using Hful.Core;
 
 namespace Hful.Iam.Api
 {
