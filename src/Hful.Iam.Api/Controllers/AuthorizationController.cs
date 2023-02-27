@@ -1,6 +1,11 @@
-﻿using Hful.Iam.Api.Dto.Authorization;
+﻿using Hful.Domain.Iam;
+using Hful.Iam.Api.Dto.Authorization;
 
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,10 +23,12 @@ namespace Hful.Iam.Api.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly SignInManager<User> _signInManager;
 
-        public AuthorizationController(IConfiguration configuration)
+        public AuthorizationController(IConfiguration configuration, SignInManager<User> signInManager)
         {
             _configuration = configuration;
+            _signInManager = signInManager;
         }
 
         [Route("login")]
@@ -44,6 +51,12 @@ namespace Hful.Iam.Api.Controllers
                 new Claim(ClaimTypes.Role, "admin"),
                 new Claim("Permission", "iam_user")
             };
+
+            var identity = new ClaimsIdentity(new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme));
+            identity.AddClaims(claims);
+
+            await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
             SecurityToken securityToken = new JwtSecurityToken(
                 signingCredentials: securityKey,
                 expires: DateTime.Now.AddHours(2),//过期时间
@@ -54,9 +67,9 @@ namespace Hful.Iam.Api.Controllers
 
         [Route("logout")]
         [HttpPost]
-        public async Task LogoutAsync()
+        public Task LogoutAsync()
         {
-
+            return HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
         }
     }
 }

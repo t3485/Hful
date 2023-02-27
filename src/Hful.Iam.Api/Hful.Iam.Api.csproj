@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hful.Application.Contracts\Hful.Application.Contracts.csproj" />
     <ProjectReference Include="..\Hful.Iam\Hful.Iam.csproj" />
   </ItemGroup>

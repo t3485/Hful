@@ -10,6 +10,8 @@ namespace Hful.Domain
     {
         IQueryable<T> AsQueryable();
 
+        Task<T?> FindById(Guid id);
+
         Task SaveAsync(T entity);
 
         Task DeleteAsync(Guid id);
