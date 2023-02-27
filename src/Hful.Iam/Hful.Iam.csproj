@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hful.Application.Contracts\Hful.Application.Contracts.csproj" />
     <ProjectReference Include="..\Hful.Core\Hful.Core.csproj" />
     <ProjectReference Include="..\Hful.Domain.Shared\Hful.Domain.Shared.csproj" />
     <ProjectReference Include="..\Hful.Domain\Hful.Domain.csproj" />

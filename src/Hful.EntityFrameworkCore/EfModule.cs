@@ -1,7 +1,7 @@
-﻿using Hful.Domain;
+﻿using Hful.Core;
+using Hful.Domain;
 using Hful.EntityFrameworkCore.Extensions;
 using Hful.EntityFrameworkCore.Repository;
-using Hful.Module;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

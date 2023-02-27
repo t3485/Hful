@@ -1,7 +1,7 @@
-﻿using Hful.Domain;
+﻿using Hful.Core;
+using Hful.Domain;
 using Hful.Domain.Shared;
 using Hful.EntityFrameworkCore.Repository;
-using Hful.Module;
 
 using Microsoft.Extensions.DependencyInjection;
 

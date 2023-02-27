@@ -2,7 +2,11 @@
 using Hful.Domain.Iam;
 using Hful.Iam.Api.Dto.Authorization;
 
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,11 +29,13 @@ namespace Hful.Iam.Api.Controllers
 
         public AuthorizationController(IConfiguration configuration,
             IRepository<User> userRepository,
-            IAsyncExecutor asyncExecutor)
+            IAsyncExecutor asyncExecutor,
+            IRepository<Role> roleRepository)
         {
             _configuration = configuration;
             _userRepository = userRepository;
             _asyncExecutor = asyncExecutor;
+            _roleRepository = roleRepository;
         }
 
         [Route("login")]
@@ -38,9 +44,6 @@ namespace Hful.Iam.Api.Controllers
         public async Task<ActionResult> LoginAsync([FromBody] LoginDto dto)
         {
             var entity = _asyncExecutor.FirstAsync(_userRepository.AsQueryable().Where(x => x.UserName == dto.Username));
-
-
-
 
             var jwtConfig = _configuration.GetSection("Jwt");
             var securityKey = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtConfig.GetValue<string>("SecretKey"))), SecurityAlgorithms.HmacSha256);
@@ -53,6 +56,12 @@ namespace Hful.Iam.Api.Controllers
                 new Claim(ClaimTypes.Role, "admin"),
                 new Claim("Permission", "iam_user")
             };
+
+            var identity = new ClaimsIdentity(new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme));
+            identity.AddClaims(claims);
+
+            await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
             SecurityToken securityToken = new JwtSecurityToken(
                 signingCredentials: securityKey,
                 expires: DateTime.Now.AddHours(2),//过期时间
@@ -64,9 +73,9 @@ namespace Hful.Iam.Api.Controllers
         [Route("logout")]
         [HttpPost]
         [Authorize]
-        public async Task LogoutAsync()
+        public Task LogoutAsync()
         {
-
+            return HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
         }
     }
 }

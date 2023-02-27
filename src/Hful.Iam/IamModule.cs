@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Hful.Iam
 {
+    [HfulDependOn(typeof(CoreModule))]
     public class IamModule : HfulModule
     {
         public override void ConfigureServices(HfulModuleContext context)

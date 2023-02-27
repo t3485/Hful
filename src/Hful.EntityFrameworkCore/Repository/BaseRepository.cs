@@ -63,6 +63,11 @@ namespace Hful.EntityFrameworkCore.Repository
             await context.BulkSaveChangesAsync();
         }
 
+        public async Task<T?> FindById(Guid id)
+        {
+            return await context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         protected virtual void CheckAndSetId(T entity)
         {
             if (entity.Id == Guid.Empty)
