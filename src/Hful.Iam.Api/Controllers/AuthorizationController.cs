@@ -60,8 +60,6 @@ namespace Hful.Iam.Api.Controllers
             var identity = new ClaimsIdentity(new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme));
             identity.AddClaims(claims);
 
-            await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-
             SecurityToken securityToken = new JwtSecurityToken(
                 signingCredentials: securityKey,
                 expires: DateTime.Now.AddHours(2),//过期时间
@@ -75,7 +73,6 @@ namespace Hful.Iam.Api.Controllers
         [Authorize]
         public Task LogoutAsync()
         {
-            return HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
         }
     }
 }
