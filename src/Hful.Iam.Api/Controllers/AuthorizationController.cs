@@ -73,6 +73,7 @@ namespace Hful.Iam.Api.Controllers
         [Authorize]
         public Task LogoutAsync()
         {
+            return Task.CompletedTask;
         }
     }
 }
