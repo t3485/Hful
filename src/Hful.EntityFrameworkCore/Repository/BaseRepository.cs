@@ -5,8 +5,6 @@ using Hful.Domain.Shared;
 
 using Microsoft.EntityFrameworkCore;
 
-using NetTopologySuite.Index.HPRtree;
-
 namespace Hful.EntityFrameworkCore.Repository
 {
     internal class BaseRepository<T> : IRepository<T> where T : BaseEntity
@@ -20,7 +18,7 @@ namespace Hful.EntityFrameworkCore.Repository
 
         public IQueryable<T> AsQueryable()
         {
-            return context.Set<T>().AsQueryable();
+            return context.Set<T>().AsQueryable().AsNoTracking();
         }
 
         public async Task SaveAsync(T entity)

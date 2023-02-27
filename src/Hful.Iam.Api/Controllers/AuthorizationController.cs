@@ -1,8 +1,9 @@
-﻿using Hful.Iam.Api.Dto.Authorization;
+﻿using Hful.Domain;
+using Hful.Domain.Iam;
+using Hful.Iam.Api.Dto.Authorization;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 using System.IdentityModel.Tokens.Jwt;
@@ -18,10 +19,17 @@ namespace Hful.Iam.Api.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Role> _roleRepository;
+        private readonly IAsyncExecutor _asyncExecutor;
 
-        public AuthorizationController(IConfiguration configuration)
+        public AuthorizationController(IConfiguration configuration,
+            IRepository<User> userRepository,
+            IAsyncExecutor asyncExecutor)
         {
             _configuration = configuration;
+            _userRepository = userRepository;
+            _asyncExecutor = asyncExecutor;
         }
 
         [Route("login")]
@@ -29,17 +37,18 @@ namespace Hful.Iam.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> LoginAsync([FromBody] LoginDto dto)
         {
+            var entity = _asyncExecutor.FirstAsync(_userRepository.AsQueryable().Where(x => x.UserName == dto.Username));
+
+
+
+
             var jwtConfig = _configuration.GetSection("Jwt");
-            //秘钥，就是标头，这里用Hmacsha256算法，需要256bit的密钥
             var securityKey = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtConfig.GetValue<string>("SecretKey"))), SecurityAlgorithms.HmacSha256);
-            //Claim，JwtRegisteredClaimNames中预定义了好多种默认的参数名，也可以像下面的Guid一样自己定义键名.
-            //ClaimTypes也预定义了好多类型如role、email、name。Role用于赋予权限，不同的角色可以访问不同的接口
-            //相当于有效载荷
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Iss, jwtConfig.GetValue<string>("Issuer")),
                 new Claim(JwtRegisteredClaimNames.Aud, jwtConfig.GetValue<string>("Audience")),
-                new Claim("guid", Guid.NewGuid().ToString("D")),
+                new Claim("id", entity.Id.ToString("D")),
                 new Claim(ClaimTypes.Role, "system"),
                 new Claim(ClaimTypes.Role, "admin"),
                 new Claim("Permission", "iam_user")
@@ -54,6 +63,7 @@ namespace Hful.Iam.Api.Controllers
 
         [Route("logout")]
         [HttpPost]
+        [Authorize]
         public async Task LogoutAsync()
         {
 

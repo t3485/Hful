@@ -16,5 +16,15 @@ namespace Hful.EntityFrameworkCore.Repository
         {
             return queryable.ToListAsync();
         }
+
+        public Task<T> FirstAsync<T>(IQueryable<T> queryable)
+        {
+            return queryable.FirstAsync();
+        }
+
+        public Task<T?> FirstOrDefaultAsync<T>(IQueryable<T> queryable)
+        {
+            return queryable.FirstOrDefaultAsync();
+        }
     }
 }
