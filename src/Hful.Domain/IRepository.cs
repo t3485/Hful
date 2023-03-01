@@ -16,6 +16,10 @@ namespace Hful.Domain
 
         Task DeleteAsync(Guid id);
 
+        Task DeleteAsync(List<Guid> id);
+
         Task SaveAsync(List<T> entities);
+
+        Task<ITransaction> BeginTransactionAsync();
     }
 }

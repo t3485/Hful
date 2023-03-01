@@ -18,6 +18,7 @@ namespace Hful.EntityFrameworkCore.Extensions
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_user");
+                b.HasIndex(x => x.UserName).IsUnique();
                 b.Property(x => x.UserName).IsRequired().HasMaxLength(32);
                 b.Property(x => x.Password).IsRequired().HasMaxLength(128);
                 b.Property(x => x.DisplayName).IsRequired().HasMaxLength(32);
@@ -29,6 +30,7 @@ namespace Hful.EntityFrameworkCore.Extensions
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_role");
+                b.HasIndex(x => x.Code).IsUnique();
                 b.Property(x => x.Code).IsRequired().HasMaxLength(32);
                 b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             });
@@ -37,12 +39,14 @@ namespace Hful.EntityFrameworkCore.Extensions
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_user_role");
+                b.HasIndex(x => new { x.UserId, x.RoleId }).IsUnique();
             });
 
             modelBuilder.Entity<Permission>(b =>
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_permission");
+                b.HasIndex(x => x.Code).IsUnique();
                 b.Property(x => x.Code).IsRequired().HasMaxLength(32);
                 b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             });
@@ -51,6 +55,7 @@ namespace Hful.EntityFrameworkCore.Extensions
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_role_permission");
+                b.HasIndex(x => new { x.RoleId, x.PermissionId }).IsUnique();
             });
 
             modelBuilder.Entity<UserPermission>(b =>

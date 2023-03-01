@@ -15,7 +15,8 @@ namespace Hful.Iam
             context.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
             context.Services.AddSingleton<IAuthorizationPolicyProvider, HfulAuthorizationPolicyProvider>();
 
-            context.Services.AddTransient<IUserService, UserService>(); 
+            context.Services.AddTransient<IUserService, UserService>();
+            context.Services.AddTransient<IRoleService, RoleService>();
         }
     }
 }

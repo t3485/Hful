@@ -1,4 +1,4 @@
-﻿namespace Hful.Iam.Api.Dto.Users
+﻿namespace Hful.Iam.Dto
 {
     public class GetUserListDto
     {

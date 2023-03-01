@@ -1,6 +1,6 @@
-﻿namespace Hful.Iam.Api.Dto.Users
+﻿namespace Hful.Iam.Api.Permissions
 {
-    public class AuthorizationPermission
+    public class UserPermission
     {
         public const string User = "iam_user";
         public const string UserSave = "iam_user_save";

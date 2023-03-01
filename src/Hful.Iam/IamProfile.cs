@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 
 using Hful.Domain.Iam;
-using Hful.Iam.Api.Dto.Users;
-
+using Hful.Iam.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

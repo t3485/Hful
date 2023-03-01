@@ -4,6 +4,7 @@ using Hful.Iam.Api;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 using System.Text;
 
@@ -20,7 +21,30 @@ namespace Hful.Web
             context.Services.AddControllers().AddApplicationPart(typeof(IamApiModule).Assembly);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             context.Services.AddEndpointsApiExplorer();
-            context.Services.AddSwaggerGen();
+            context.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Value Bearer {token}",
+                    Name = "Authorization",//jwt默认的参数名称
+                    In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
+                    Type = SecuritySchemeType.ApiKey
+                });
+            });
 
             context.Services.AddAuthentication(options =>
             {

@@ -1,20 +1,11 @@
-﻿using Hful.Application.Contracts;
-using Hful.Iam.Api.Dto.Users;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hful.Core.Application;
+using Hful.Domain.Iam;
+using Hful.Domain;
+using Hful.Iam.Dto;
 
 namespace Hful.Iam.Service
 {
-    public interface IUserService
+    public interface IUserService: ICurdService<User, UserDto, GetUserListDto, SaveUserDto, IRepository<User>>
     {
-        Task<PageDto<UserDto>> GetListAsync(GetUserListDto dto);
-
-        Task SaveUserAsync(SaveUserDto dto);
-
-        Task DeleteAsync(Guid id);
     }
 }

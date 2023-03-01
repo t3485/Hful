@@ -1,10 +1,8 @@
-﻿using Hful.Application.Contracts;
-using Hful.Domain;
-using Hful.Domain.Iam;
-using Hful.Iam.Api.Dto.Users;
+﻿using Hful.Core.Application;
+using Hful.Iam.Api.Permissions;
+using Hful.Iam.Dto;
 using Hful.Iam.Service;
 
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +19,7 @@ namespace Hful.Iam.Api.Controllers
             _userService = userService;
         }
 
-        [Authorize(AuthorizationPermission.User)]
+        [Authorize(UserPermission.User)]
         [HttpGet]
         [Route("list")]
         public Task<PageDto<UserDto>> GetListAsync([FromQuery] GetUserListDto dto)
@@ -29,7 +27,7 @@ namespace Hful.Iam.Api.Controllers
             return _userService.GetListAsync(dto);
         }
 
-        [Authorize(AuthorizationPermission.UserSave)]
+        [Authorize(UserPermission.UserSave)]
         [HttpPost]
         [Route("save")]
         public Task SaveAsync([FromBody] SaveUserDto dto)
@@ -37,7 +35,7 @@ namespace Hful.Iam.Api.Controllers
             return _userService.SaveUserAsync(dto);
         }
 
-        [Authorize(AuthorizationPermission.UserDelete)]
+        [Authorize(UserPermission.UserDelete)]
         [HttpDelete]
         [Route("del")]
         public Task DeleteAsync([FromQuery] Guid id)

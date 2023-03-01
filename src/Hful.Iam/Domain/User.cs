@@ -2,7 +2,7 @@
 
 namespace Hful.Domain.Iam
 {
-    public class User : AuditedEntity
+    public class User : AuditedEntity, ITenant
     {
         public string UserName { get; set; }
 
@@ -13,5 +13,7 @@ namespace Hful.Domain.Iam
         public string? Phone { get; set; }
 
         public string DisplayName { get; set; }
+
+        public Guid? TenantId { get; set; }
     }
 }

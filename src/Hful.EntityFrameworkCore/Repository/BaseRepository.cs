@@ -45,6 +45,16 @@ namespace Hful.EntityFrameworkCore.Repository
             }
         }
 
+        public async Task DeleteAsync(List<Guid> id)
+        {
+            var entities = await context.Set<T>().Where(x => id.Contains(x.Id)).ToListAsync();
+            foreach (var item in entities)
+            {
+                context.Set<T>().Remove(item);
+            }
+            await context.SaveChangesAsync();
+        }
+
         public async Task SaveAsync(List<T> entities)
         {
             foreach (var item in entities)
@@ -66,6 +76,12 @@ namespace Hful.EntityFrameworkCore.Repository
         public async Task<T?> FindById(Guid id)
         {
             return await context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ITransaction> BeginTransactionAsync()
+        {
+            var transaction = await context.Database.BeginTransactionAsync();
+            return new EfCoreTransaction(transaction);
         }
 
         protected virtual void CheckAndSetId(T entity)
