@@ -1,6 +1,6 @@
 ﻿namespace Hful.Core.Application
 {
-    public class IEntityDto
+    public interface IEntityDto
     {
         public Guid Id { get; set; }
     }

@@ -1,6 +1,9 @@
-﻿namespace Hful.Iam.Dto
+﻿using Hful.Core.Application;
+
+namespace Hful.Iam.Dto
 {
-    public class UserDto
+    public class UserDto : IEntityDto
     {
+        public Guid Id { get; set; }
     }
 }

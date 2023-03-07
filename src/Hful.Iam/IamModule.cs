@@ -17,6 +17,7 @@ namespace Hful.Iam
 
             context.Services.AddTransient<IUserService, UserService>();
             context.Services.AddTransient<IRoleService, RoleService>();
+            context.Services.AddTransient<ILoginService, LoginService>(); 
         }
     }
 }

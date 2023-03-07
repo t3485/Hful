@@ -1,6 +1,8 @@
 ﻿using Hful.Domain;
 using Hful.Domain.Iam;
 using Hful.Iam.Api.Dto.Authorization;
+using Hful.Iam.Service;
+using Hful.Iam.Util;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 using System.IdentityModel.Tokens.Jwt;
@@ -23,19 +26,13 @@ namespace Hful.Iam.Api.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Role> _roleRepository;
-        private readonly IAsyncExecutor _asyncExecutor;
+        private readonly ILoginService _loginService;
 
         public AuthorizationController(IConfiguration configuration,
-            IRepository<User> userRepository,
-            IAsyncExecutor asyncExecutor,
-            IRepository<Role> roleRepository)
+            ILoginService loginService)
         {
             _configuration = configuration;
-            _userRepository = userRepository;
-            _asyncExecutor = asyncExecutor;
-            _roleRepository = roleRepository;
+            _loginService = loginService;
         }
 
         [Route("login")]
@@ -43,29 +40,14 @@ namespace Hful.Iam.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> LoginAsync([FromBody] LoginDto dto)
         {
-            var entity = _asyncExecutor.FirstAsync(_userRepository.AsQueryable().Where(x => x.UserName == dto.Username));
+            var user = await _loginService.LoginAsync(dto.Username, dto.Password);
+            if (!user.Status || user.User == null)
+            {
+                return Unauthorized();
+            }
 
             var jwtConfig = _configuration.GetSection("Jwt");
-            var securityKey = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtConfig.GetValue<string>("SecretKey"))), SecurityAlgorithms.HmacSha256);
-            var claims = new Claim[]
-            {
-                new Claim(JwtRegisteredClaimNames.Iss, jwtConfig.GetValue<string>("Issuer")),
-                new Claim(JwtRegisteredClaimNames.Aud, jwtConfig.GetValue<string>("Audience")),
-                new Claim("id", entity.Id.ToString("D")),
-                new Claim(ClaimTypes.Role, "system"),
-                new Claim(ClaimTypes.Role, "admin"),
-                new Claim("Permission", "iam_user")
-            };
-
-            var identity = new ClaimsIdentity(new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme));
-            identity.AddClaims(claims);
-
-            SecurityToken securityToken = new JwtSecurityToken(
-                signingCredentials: securityKey,
-                expires: DateTime.Now.AddHours(2),//过期时间
-                claims: claims
-            );
-            return Content(new JwtSecurityTokenHandler().WriteToken(securityToken));
+            return Content(new TokenBuilder().ReadFromConfiguration(jwtConfig).SetFromUserDto(user.User).Build());
         }
 
         [Route("logout")]
