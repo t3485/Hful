@@ -8,5 +8,6 @@ namespace Hful.Iam.Service
 {
     internal class CurrentUser : ICurrentUser
     {
+
     }
 }
