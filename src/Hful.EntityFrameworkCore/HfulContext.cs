@@ -1,5 +1,6 @@
 ﻿using Hful.Domain.Iam;
 using Hful.EntityFrameworkCore.Extensions;
+using Hful.Iam.Domain;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,7 @@ namespace Hful.EntityFrameworkCore
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
+        public DbSet<Menu> Menus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

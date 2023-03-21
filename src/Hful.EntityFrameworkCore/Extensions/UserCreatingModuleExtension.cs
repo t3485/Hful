@@ -1,4 +1,5 @@
 ﻿using Hful.Domain.Iam;
+using Hful.Iam.Domain;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -62,6 +63,15 @@ namespace Hful.EntityFrameworkCore.Extensions
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_user_permission");
+            });
+
+            modelBuilder.Entity<Menu>(b =>
+            {
+                b.ConfigAutoProperty();
+                b.ToTable("iam_menu");
+                b.HasIndex(x => x.Code).IsUnique();
+                b.Property(x => x.Code).IsRequired().HasMaxLength(32);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             });
         }
     }
