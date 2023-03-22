@@ -14,17 +14,19 @@ namespace Hful.Iam.Api.Controllers
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionService _permissionService;
+        private readonly ICurrentUser _currentUser;
 
-        public PermissionController(IPermissionService permissionService)
+        public PermissionController(IPermissionService permissionService, ICurrentUser currentUser)
         {
             _permissionService = permissionService;
+            _currentUser = currentUser;
         }
 
         [Route("menu")]
         [HttpGet]
         public async Task<List<MenuDto>> GetMenuAsync()
         {
-            return await _permissionService.GetMenu(Guid.Empty, Guid.Empty);
+            return await _permissionService.GetMenu(_currentUser.Id, _currentUser.TenantId);
         }
     }
 }

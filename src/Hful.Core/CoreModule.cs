@@ -12,7 +12,10 @@ namespace Hful.Core
         {
             context.Services.AddSingleton<IObjectMapper, ObjectMapper>();
 
-            context.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            string name = typeof(CoreModule).Assembly.FullName;
+            name = name.Substring(0, name.IndexOf('.'));
+
+            context.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.StartsWith(name)));
         }
     }
 }

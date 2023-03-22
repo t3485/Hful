@@ -1,4 +1,6 @@
 ﻿using Hful.Core;
+using Hful.Iam.Api.Context;
+using Hful.Iam.Service;
 
 namespace Hful.Iam.Api
 {
@@ -7,6 +9,7 @@ namespace Hful.Iam.Api
     {
         public override void ConfigureServices(HfulModuleContext context)
         {
+            context.Services.AddTransient<ICurrentUser, CurrentUser>();
         }
     }
 }

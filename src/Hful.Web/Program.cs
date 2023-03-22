@@ -5,6 +5,7 @@ using Hful.Web;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddModule<WebModule>(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

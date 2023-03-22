@@ -2,6 +2,7 @@
 
 using Hful.Domain.Iam;
 using Hful.Iam.Dto;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Hful.Iam
         {
             CreateMap<User, SaveUserDto>();
             CreateMap<UserDto, User>();
-
+            CreateMap<User, UserDto>();
         }
     }
 }
