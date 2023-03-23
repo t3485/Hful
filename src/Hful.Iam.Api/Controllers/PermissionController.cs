@@ -26,7 +26,7 @@ namespace Hful.Iam.Api.Controllers
         [HttpGet]
         public async Task<List<MenuDto>> GetMenuAsync()
         {
-            return await _permissionService.GetMenu(_currentUser.Id, _currentUser.TenantId);
+            return await _permissionService.GetMenu(_currentUser.TenantId, _currentUser.Id);
         }
     }
 }

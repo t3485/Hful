@@ -17,7 +17,12 @@ namespace Hful.EntityFrameworkCore
             {
                 var user = new User[]
                 {
-                    new User {  }
+                    new User
+                    {
+                        UserName = "admin",
+                        Password = "123456",
+                        DisplayName = "admin",
+                    }
                 };
                 context.Users.AddRange(user);
                 context.SaveChanges();

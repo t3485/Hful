@@ -18,7 +18,7 @@ namespace Hful.Iam.Service
             _asyncExecutor = asyncExecutor;
         }
 
-        public async Task<List<MenuDto>> GetMenu(Guid tenantId, Guid userId)
+        public async Task<List<MenuDto>> GetMenu(Guid? tenantId, Guid userId)
         {
             var data = (await _asyncExecutor.ToListAsync(_menuRepsoitory.AsQueryable().Where(x => x.TenantId == tenantId)));
             return await ToTree(data);

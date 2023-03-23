@@ -17,7 +17,7 @@ namespace Hful.Iam.Api.Context
 
         public string UserName { get => Find("username"); }
 
-        public Guid TenantId { get => Guid.Parse(Find("tenantId")); }
+        public Guid? TenantId { get => GuidParse(Find("tenantId")); }
 
         private string Find(string name)
         {
@@ -26,6 +26,12 @@ namespace Hful.Iam.Api.Context
 
             JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(jwt);
             return token.Claims.FirstOrDefault(x => x.Type == name)?.Value;
+        }
+
+        private static Guid? GuidParse(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return null;
+            return Guid.Parse(value);
         }
     }
 }

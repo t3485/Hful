@@ -1,4 +1,5 @@
 ﻿using Hful.Domain.Iam;
+using Hful.Domain.Shared;
 using Hful.EntityFrameworkCore.Extensions;
 using Hful.Iam.Domain;
 
@@ -24,6 +25,36 @@ namespace Hful.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureUser();
+        }
+
+        public override int SaveChanges()
+        {
+            SetAutoField();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetAutoField();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetAutoField()
+        {
+            foreach (var item in ChangeTracker.Entries())
+            {
+                if (item.Entity is AuditedEntity entity)
+                {
+                    if (item.State == EntityState.Added)
+                    {
+                        entity.CreatedTime = DateTime.Now;
+                    }
+                    else if (item.State == EntityState.Modified)
+                    {
+                        entity.UpdatedTime = DateTime.Now;
+                    }
+                }
+            }
         }
     }
 }
