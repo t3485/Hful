@@ -53,7 +53,7 @@ namespace Hful.EntityFrameworkCore
                     if (item.State == EntityState.Added)
                     {
                         entity.CreatedTime = DateTime.Now;
-                        entity.CreatedBy = _currentUser.Id;
+                        entity.CreatedBy = _currentUser.Id ?? Guid.Empty;
                     }
                     else if (item.State == EntityState.Modified)
                     {

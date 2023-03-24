@@ -8,8 +8,8 @@ namespace Hful.Iam.Service
 {
     public interface ICurrentUser
     {
-        Guid Id { get; }
+        Guid? Id { get; }
 
-        string UserName { get; }
+        string? UserName { get; }
     }
 }

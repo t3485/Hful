@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using Hful.Domain.Iam;
+using Hful.Iam.Domain;
 using Hful.Iam.Dto;
 
 using System;
@@ -18,6 +19,8 @@ namespace Hful.Iam
             CreateMap<User, SaveUserDto>();
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>();
+
+            CreateMap<Menu, MenuDto>();
         }
     }
 }
