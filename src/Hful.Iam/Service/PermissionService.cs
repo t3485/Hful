@@ -38,13 +38,9 @@ namespace Hful.Iam.Service
                 {
                     result.Add(item);
                 }
-                else if (parentMap.ContainsKey(item.ParentId.Value))
+                else if (parentMap.TryGetValue(item.ParentId.Value, out var parent))
                 {
-                    MenuDto? parent = parentMap.GetValueOrDefault(item.ParentId.Value);
-                    if (parent.Children == null)
-                    {
-                        parent.Children = new List<MenuDto>();
-                    }
+                    parent.Children ??= new List<MenuDto>();
                     parent.Children.Add(item);
                 }
                 else
@@ -73,13 +69,9 @@ namespace Hful.Iam.Service
                     {
                         result.Add(item);
                     }
-                    else if (parentMap.ContainsKey(item.ParentId.Value))
+                    else if (parentMap.TryGetValue(item.ParentId.Value, out var parent))
                     {
-                        MenuDto? parent = parentMap.GetValueOrDefault(item.ParentId.Value);
-                        if (parent.Children == null)
-                        {
-                            parent.Children = new List<MenuDto>();
-                        }
+                        parent.Children ??= new List<MenuDto>();
                         parent.Children.Add(item);
                     }
                     else

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Hful.Iam.Tenant.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7517;http://localhost:7518"
+    }
+  }
+}

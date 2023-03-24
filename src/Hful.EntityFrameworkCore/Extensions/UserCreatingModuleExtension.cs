@@ -67,6 +67,15 @@ namespace Hful.EntityFrameworkCore.Extensions
                 b.Property(x => x.Code).IsRequired().HasMaxLength(32);
                 b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             });
+
+            modelBuilder.Entity<Tenant>(b =>
+            {
+                b.ConfigAutoProperty();
+                b.ToTable("iam_tenant");
+                b.HasIndex(x => x.Code).IsUnique();
+                b.Property(x => x.Code).IsRequired().HasMaxLength(32);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            });
         }
     }
 }

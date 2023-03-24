@@ -2,6 +2,7 @@
 using Hful.Domain.Shared;
 using Hful.EntityFrameworkCore.Extensions;
 using Hful.Iam.Domain;
+using Hful.Iam.Service;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +10,12 @@ namespace Hful.EntityFrameworkCore
 {
     public class HfulContext : DbContext
     {
-        public HfulContext(DbContextOptions<HfulContext> options)
+        private readonly ICurrentUser _currentUser;
+
+        public HfulContext(DbContextOptions<HfulContext> options, ICurrentUser currentUser)
             : base(options)
         {
+            _currentUser = currentUser;
         }
 
         public DbSet<User> Users { get; set; }
@@ -21,6 +25,7 @@ namespace Hful.EntityFrameworkCore
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,10 +53,12 @@ namespace Hful.EntityFrameworkCore
                     if (item.State == EntityState.Added)
                     {
                         entity.CreatedTime = DateTime.Now;
+                        entity.CreatedBy = _currentUser.Id;
                     }
                     else if (item.State == EntityState.Modified)
                     {
                         entity.UpdatedTime = DateTime.Now;
+                        entity.UpdatedBy = _currentUser.Id;
                     }
                 }
             }

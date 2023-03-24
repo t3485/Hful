@@ -2,6 +2,7 @@
 using Hful.Domain.Iam;
 using Hful.Domain;
 using Hful.Iam.Api.Dto.Users;
+using Hful.Iam.Dto;
 
 namespace Hful.Iam.Service
 {

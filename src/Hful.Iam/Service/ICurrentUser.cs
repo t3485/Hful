@@ -11,7 +11,5 @@ namespace Hful.Iam.Service
         Guid Id { get; }
 
         string UserName { get; }
-
-        Guid? TenantId { get; }
     }
 }

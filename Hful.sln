@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Core.Application", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Iam.Captcha", "src\Hful.Iam.Captcha\Hful.Iam.Captcha.csproj", "{EE9868DD-5FFB-4A43-AC37-E5B68955345A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hful.Workflow", "src\Hful.Workflow\Hful.Workflow.csproj", "{C53A6289-31C9-4B0B-8AF1-E01980A844D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.Workflow", "src\Hful.Workflow\Hful.Workflow.csproj", "{C53A6289-31C9-4B0B-8AF1-E01980A844D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

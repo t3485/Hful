@@ -1,11 +1,5 @@
 ﻿using Hful.Domain.Iam;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hful.Iam.Domain;
 
 namespace Hful.EntityFrameworkCore
 {
@@ -15,16 +9,31 @@ namespace Hful.EntityFrameworkCore
         {
             if (!context.Users.Any())
             {
-                var user = new User[]
+                var user = new User
                 {
-                    new User
+                    UserName = "admin",
+                    Password = "123456",
+                    DisplayName = "admin",
+                };
+                context.Users.Add(user);
+
+                var tenant = new Tenant
+                {
+                    Code = "Test",
+                    Name = "Test"
+                };
+                context.Tenants.Add(tenant);
+
+                var menus = new List<Menu>()
+                {
+                    new Menu
                     {
-                        UserName = "admin",
-                        Password = "123456",
-                        DisplayName = "admin",
+                        Name = "Test",
+                        Code = "Test",
                     }
                 };
-                context.Users.AddRange(user);
+                context.Menus.AddRange(menus);
+
                 context.SaveChanges();
             }
         }

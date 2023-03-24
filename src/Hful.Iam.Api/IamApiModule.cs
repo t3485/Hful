@@ -10,6 +10,7 @@ namespace Hful.Iam.Api
         public override void ConfigureServices(HfulModuleContext context)
         {
             context.Services.AddTransient<ICurrentUser, CurrentUser>();
+            context.Services.AddTransient<ICurrentTenant, CurrentTenant>(); 
         }
     }
 }

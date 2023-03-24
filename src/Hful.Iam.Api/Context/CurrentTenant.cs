@@ -4,18 +4,16 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Hful.Iam.Api.Context
 {
-    internal class CurrentUser : ICurrentUser
+    internal class CurrentTenant : ICurrentTenant
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CurrentUser(IHttpContextAccessor httpContextAccessor)
+        public CurrentTenant(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Guid Id { get => Guid.Parse(Find("id")); }
-
-        public string UserName { get => Find("username"); }
+        public Guid? Id { get => GuidParse(Find("tenantId")); }
 
         private string Find(string name)
         {
