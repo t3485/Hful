@@ -1,4 +1,5 @@
-﻿using Hful.Iam.Dto;
+﻿using Hful.Iam.Api.Attributes;
+using Hful.Iam.Dto;
 using Hful.Iam.Service;
 using Hful.Iam.Util;
 
@@ -26,6 +27,7 @@ namespace Hful.Iam.Api.Controllers
 
         [Route("menu")]
         [HttpGet]
+        [ResponseWrapper]
         public async Task<List<MenuDto>> GetMenuAsync()
         {
             return await _permissionService.GetMenu(_currentTenant.Id, _currentUser.Id.Value);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hful.Iam.Dto
+﻿namespace Hful.Iam.Dto
 {
     public class MenuDto
     {
@@ -13,5 +7,7 @@ namespace Hful.Iam.Dto
         public Guid? ParentId { get; set; }
 
         public Guid Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
