@@ -1,10 +1,5 @@
 ﻿using Hful.Domain.Shared;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hful.Iam.Emuns;
 
 namespace Hful.Iam.Domain
 {
@@ -17,5 +12,13 @@ namespace Hful.Iam.Domain
         public Guid? ParentId { get; set; }
 
         public Guid? TenantId { get; set; }
+
+        public MenuType Type { get; set; }
+
+        public string? Url { get; set; }
+
+        public string? Component { get; set; }
+
+        public string? Redirect { get; set; }
     }
 }

@@ -57,6 +57,7 @@ namespace Hful.EntityFrameworkCore.Extensions
             {
                 b.ConfigAutoProperty();
                 b.ToTable("iam_user_permission");
+                b.HasIndex(x => new { x.UserId, x.PermissionId }).IsUnique();
             });
 
             modelBuilder.Entity<Menu>(b =>

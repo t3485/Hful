@@ -30,7 +30,7 @@ namespace Hful.Iam.Api.Controllers
         [ResponseWrapper]
         public async Task<List<MenuDto>> GetMenuAsync()
         {
-            return await _permissionService.GetMenu(_currentTenant.Id, _currentUser.Id.Value);
+            return await _permissionService.GetMenuAsync(_currentTenant.Id, _currentUser.Id.Value);
         }
     }
 }

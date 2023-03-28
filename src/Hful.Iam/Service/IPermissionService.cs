@@ -10,6 +10,8 @@ namespace Hful.Iam.Service
 {
     public interface IPermissionService
     {
-        Task<List<MenuDto>> GetMenu(Guid? tenantId, Guid userId);
+        Task<List<MenuDto>> GetMenuAsync(Guid? tenantId, Guid userId);
+
+        Task<List<string>> GetPermissionAsync(Guid? tenantId, Guid userId);
     }
 }

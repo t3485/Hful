@@ -1,4 +1,5 @@
-﻿using Hful.Iam.Service;
+﻿using Hful.Domain.Iam;
+using Hful.Iam.Service;
 
 using System.IdentityModel.Tokens.Jwt;
 
@@ -16,6 +17,10 @@ namespace Hful.Iam.Api.Context
         public Guid? Id { get => GuidParse(Find("id")); }
 
         public string? UserName { get => Find("username"); }
+
+        public bool IsSuperAdmin { get => true; }
+
+        public List<Role> Roles { get; }
 
         private string? Find(string name)
         {

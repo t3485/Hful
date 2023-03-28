@@ -14,10 +14,17 @@ namespace Hful.Iam.Util
     {
         private string secretKey, issuer, audience;
         private Guid userId;
+        private List<string> permissions;
 
         public TokenBuilder SetFromUserDto(UserDto dto)
         {
             userId = dto.Id;
+            return this;
+        }
+
+        public TokenBuilder SetPermissions(List<string> permissions)
+        {
+            this.permissions = permissions;
             return this;
         }
 
@@ -39,7 +46,7 @@ namespace Hful.Iam.Util
                 new Claim("id", userId.ToString("D")),
                 new Claim(ClaimTypes.Role, "system"),
                 new Claim(ClaimTypes.Role, "admin"),
-                new Claim("Permission", "iam_user")
+                new Claim("permission", string.Join(',', permissions))
             };
 
             var identity = new ClaimsIdentity(new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme));

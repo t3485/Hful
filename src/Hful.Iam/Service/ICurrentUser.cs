@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hful.Domain.Iam;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +13,9 @@ namespace Hful.Iam.Service
         Guid? Id { get; }
 
         string? UserName { get; }
+
+        bool IsSuperAdmin { get; }
+
+        List<Role> Roles { get; }
     }
 }

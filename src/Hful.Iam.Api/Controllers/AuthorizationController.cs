@@ -21,14 +21,17 @@ namespace Hful.Iam.Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILoginService _loginService;
         private readonly ICaptcha _captcha;
+        private readonly IPermissionService _permissionService;
 
         public AuthorizationController(IConfiguration configuration,
             ILoginService loginService,
-            ICaptcha captcha)
+            ICaptcha captcha,
+            IPermissionService permissionService)
         {
             _configuration = configuration;
             _loginService = loginService;
             _captcha = captcha;
+            _permissionService = permissionService;
         }
 
         [Route("login")]
@@ -44,8 +47,10 @@ namespace Hful.Iam.Api.Controllers
                 return Unauthorized(data);
             }
 
+            var permissions = await _permissionService.GetPermissionAsync(null, user.User.Id);
+
             var jwtConfig = _configuration.GetSection("Jwt");
-            data.Token = new TokenBuilder().ReadFromConfiguration(jwtConfig).SetFromUserDto(user.User).Build();
+            data.Token = new TokenBuilder().ReadFromConfiguration(jwtConfig).SetFromUserDto(user.User).SetPermissions(permissions).Build();
 
             return new ObjectResult(data);
         }
