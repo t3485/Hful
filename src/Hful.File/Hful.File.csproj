@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Hful.Domain.Shared\Hful.Domain.Shared.csproj" />
   </ItemGroup>
 
