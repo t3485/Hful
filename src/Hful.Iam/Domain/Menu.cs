@@ -11,8 +11,6 @@ namespace Hful.Iam.Domain
 
         public Guid? ParentId { get; set; }
 
-        public Guid? TenantId { get; set; }
-
         public MenuType Type { get; set; }
 
         public string? Url { get; set; }
@@ -20,5 +18,7 @@ namespace Hful.Iam.Domain
         public string? Component { get; set; }
 
         public string? Redirect { get; set; }
+
+        public Guid? TenantId { get; set; }
     }
 }

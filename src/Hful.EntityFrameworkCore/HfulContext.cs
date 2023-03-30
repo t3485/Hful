@@ -1,6 +1,7 @@
 ﻿using Hful.Domain.Iam;
 using Hful.Domain.Shared;
 using Hful.EntityFrameworkCore.Extensions;
+using Hful.File.Domain;
 using Hful.Iam.Domain;
 using Hful.Iam.Service;
 
@@ -27,9 +28,14 @@ namespace Hful.EntityFrameworkCore
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
 
+
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<AttachmentRelation> AttachmentRelations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureUser();
+            modelBuilder.ConfigureAttachment();
         }
 
         public override int SaveChanges()
