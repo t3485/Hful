@@ -28,7 +28,7 @@ namespace Hful.Core.Application
 
         public async Task SaveUserAsync(TSaveDto dto)
         {
-            var entity = await _userRepository.FindById(dto.Id);
+            var entity = await _userRepository.FindByIdAsync(dto.Id);
             if (entity != null)
             {
                 _objectMapper.Map(dto, entity);

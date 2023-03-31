@@ -17,5 +17,9 @@ namespace Hful.File.Providers
         void Upload(Attachment attachment, Stream stream);
 
         Task UploadAsync(Attachment attachment, Stream stream);
+
+        Task UploadAsync(Attachment attachment);
+
+        Task DeleteAsync(Attachment attachment);
     }
 }

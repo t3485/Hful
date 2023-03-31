@@ -27,6 +27,12 @@ namespace Hful.EntityFrameworkCore.Extensions
                 b.Property(x => x.DisplayName).HasMaxLength(128);
                 b.Property(x => x.BusinessType).IsRequired().HasMaxLength(16);
             });
+
+            modelBuilder.Entity<AttachmentUpload>(b =>
+            {
+                b.ConfigAutoProperty();
+                b.ToTable("f_attachment_upload");
+            });
         }
     }
 }

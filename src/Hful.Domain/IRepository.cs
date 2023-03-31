@@ -10,13 +10,15 @@ namespace Hful.Domain
     {
         IQueryable<T> AsQueryable();
 
-        Task<T?> FindById(Guid id);
+        Task<T?> FindByIdAsync(Guid id);
+
+        Task<List<T>> FindByIdAsync(IEnumerable<Guid> id);
 
         Task SaveAsync(T entity);
 
         Task DeleteAsync(Guid id);
 
-        Task DeleteAsync(List<Guid> id);
+        Task DeleteAsync(IEnumerable<Guid> id);
 
         Task SaveAsync(List<T> entities);
 

@@ -4,12 +4,6 @@ using Hful.Domain.Iam;
 using Hful.Iam.Domain;
 using Hful.Iam.Dto;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Hful.Iam
 {
     public class IamProfile : Profile

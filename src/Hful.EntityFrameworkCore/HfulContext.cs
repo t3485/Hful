@@ -31,7 +31,8 @@ namespace Hful.EntityFrameworkCore
 
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<AttachmentRelation> AttachmentRelations { get; set; }
-
+        public DbSet<AttachmentUpload> AttachmentUploads { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureUser();
