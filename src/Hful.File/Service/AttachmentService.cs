@@ -186,23 +186,29 @@ namespace Hful.File.Service
             await uow.CompleteAsync();
         }
 
-        public async Task DownloadFileAsync(Guid attachmentId)
+        public async Task<Stream> DownloadFileAsync(Guid attachmentId)
         {
-            var attachmnet = await _attachmentRepository.FindByIdAsync(attachmentId);
-            if (attachmnet == null)
+            var attachment = await _attachmentRepository.FindByIdAsync(attachmentId);
+            if (attachment == null)
             {
                 throw new InvalidOperationException();
             }
+
+            var provider = AttachmentConfiguration.GetProvider(attachment.Provider);
+            if (provider == null)
+            {
+                throw new InvalidOperationException();
+            }
+            return await provider.DownloadAsync(attachment);
         }
 
-        public Task DownloadFileAsync(Guid attachmentId, IBusinessProvider provider)
+        public async Task<List<AttachmentDto>> GetAsync(IBusinessProvider provider)
         {
-            throw new NotImplementedException();
-        }
+            var data = await _asyncExecutor.ToListAsync(
+                _relationRepository.AsQueryable().Where(x => x.BusinessType == provider.Type && x.BusinessId == provider.Id && x.TenantId == provider.TenantId));
 
-        public Task<List<AttachmentDto>> GetAsync(IBusinessProvider provider)
-        {
-            throw new NotImplementedException();
+            var attachment = await _attachmentRepository.FindByIdAsync(data.Select(x => x.Id));
+            return _objectMapper.Map<List<Attachment>, List<AttachmentDto>>(attachment);
         }
     }
 }
