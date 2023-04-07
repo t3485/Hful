@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "Hful.Iam.Captcha": {
+    "Hful.Domain": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:10612;http://localhost:10613"
+      "applicationUrl": "https://localhost:14585;http://localhost:14589"
     }
   }
 }

@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.File", "src\Hful.File\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hful.File.Api", "src\Hful.File.Api\Hful.File.Api.csproj", "{8B552B16-5B55-47DA-B54D-66035832511A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hful.Core.Job", "src\Hful.Core.Job\Hful.Core.Job.csproj", "{FEA3A80F-A4C7-4754-BECA-53238DB8B353}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{8B552B16-5B55-47DA-B54D-66035832511A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B552B16-5B55-47DA-B54D-66035832511A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B552B16-5B55-47DA-B54D-66035832511A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEA3A80F-A4C7-4754-BECA-53238DB8B353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA3A80F-A4C7-4754-BECA-53238DB8B353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA3A80F-A4C7-4754-BECA-53238DB8B353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA3A80F-A4C7-4754-BECA-53238DB8B353}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
