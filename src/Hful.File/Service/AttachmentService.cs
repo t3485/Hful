@@ -186,7 +186,7 @@ namespace Hful.File.Service
             await uow.CompleteAsync();
         }
 
-        public async Task<Stream> DownloadFileAsync(Guid attachmentId)
+        public async ValueTask<Stream> DownloadFileAsync(Guid attachmentId)
         {
             var attachment = await _attachmentRepository.FindByIdAsync(attachmentId);
             if (attachment == null)
