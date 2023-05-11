@@ -1,7 +1,9 @@
 ﻿using Hful.Core;
+using Hful.Core.UnitOfWork;
 using Hful.Domain;
 using Hful.EntityFrameworkCore.Extensions;
 using Hful.EntityFrameworkCore.Repository;
+using Hful.EntityFrameworkCore.UnitOfWork;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,7 @@ namespace Hful.EntityFrameworkCore
             context.AddAutoRepository();
 
             context.Services.AddSingleton<IAsyncExecutor, AsyncExecutor>();
+            context.Services.AddScoped<IUowManager, UowManager>();
         }
     }
 }
