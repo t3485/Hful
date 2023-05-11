@@ -186,20 +186,26 @@ namespace Hful.File.Service
             await uow.CompleteAsync();
         }
 
-        public async Task<Stream> DownloadFileAsync(Guid attachmentId)
+        public async Task<DownloadFileDto?> DownloadFileAsync(Guid attachmentId)
         {
             var attachment = await _attachmentRepository.FindByIdAsync(attachmentId);
             if (attachment == null)
             {
-                throw new InvalidOperationException();
+                return null;
             }
 
             var provider = AttachmentConfiguration.GetProvider(attachment.Provider);
             if (provider == null)
             {
-                throw new InvalidOperationException();
+                return null;
             }
-            return await provider.DownloadAsync(attachment);
+
+            DownloadFileDto dto = new()
+            {
+                Stream = await provider.DownloadAsync(attachment),
+                Extension = Path.GetExtension(attachment.Name)
+            };
+            return dto;
         }
 
         public async Task<List<AttachmentDto>> GetAsync(IBusinessProvider provider)

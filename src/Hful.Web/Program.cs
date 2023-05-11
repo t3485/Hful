@@ -1,10 +1,6 @@
 using Hful.Core.Extensions;
-using Hful.Core.Options;
 using Hful.EntityFrameworkCore;
-using Hful.Iam.Api;
 using Hful.Web;
-
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
