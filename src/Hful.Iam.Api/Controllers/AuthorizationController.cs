@@ -7,14 +7,11 @@ using Lazy.Captcha.Core;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-
-using System.Text.Json;
 
 namespace Hful.Iam.Api.Controllers
 {
     [ApiController]
-    [Route("iam")]
+    [Route("iam/auth")]
     [ResponseWrapper]
     public class AuthorizationController : ControllerBase
     {
@@ -22,16 +19,19 @@ namespace Hful.Iam.Api.Controllers
         private readonly ILoginService _loginService;
         private readonly ICaptcha _captcha;
         private readonly IPermissionService _permissionService;
+        private readonly ICurrentUser _currentUser;
 
         public AuthorizationController(IConfiguration configuration,
             ILoginService loginService,
             ICaptcha captcha,
-            IPermissionService permissionService)
+            IPermissionService permissionService,
+            ICurrentUser currentUser)
         {
             _configuration = configuration;
             _loginService = loginService;
             _captcha = captcha;
             _permissionService = permissionService;
+            _currentUser = currentUser;
         }
 
         [Route("login")]
@@ -69,6 +69,7 @@ namespace Hful.Iam.Api.Controllers
         public CurrentUserDto GetCurrentUserAsync()
         {
             CurrentUserDto dto = new CurrentUserDto();
+            dto.Id = _currentUser.Id;
 
             return dto;
         }

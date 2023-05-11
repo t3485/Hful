@@ -5,8 +5,8 @@ namespace Hful.Core
 {
     public class HfulModuleContext
     {
-        public IServiceCollection Services { get; set; }
+        public IServiceCollection Services { get; internal set; }
 
-        public IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; internal set; }
     }
 }

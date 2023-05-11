@@ -7,22 +7,20 @@ namespace Hful.Core
 {
     internal class ModuleRunner<T>
     {
-        private readonly List<HfulModule> _instance;
-
-        public ModuleRunner()
-        {
-            _instance = GetModules(typeof(T)).Select(x => (HfulModule?)Activator.CreateInstance(x)).Where(x => x != null).ToList();
-        }
-
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            List<HfulModule> instance = GetModules(typeof(T))
+                .Select(x => (HfulModule)Activator.CreateInstance(x))
+                .Where(x => x != null).ToList();
+
             var context = new HfulModuleContext()
             {
                 Services = services,
                 Configuration = configuration
             };
-            foreach (var item in _instance)
+            foreach (var item in instance)
             {
+                item.Services = services;
                 item.ConfigureServices(context);
             }
         }
