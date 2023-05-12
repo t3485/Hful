@@ -38,7 +38,7 @@ namespace Hful.File.Api.Controllers
                 return NotFound();
             }
 
-            return File(data.Stream, MimeMapping.GetMimeType(data.Extension));
+            return File(data.Stream, MimeMapping.GetMimeType(data.Extension), data.Name);
         }
     }
 }

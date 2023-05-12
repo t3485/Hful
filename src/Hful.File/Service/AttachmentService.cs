@@ -203,7 +203,8 @@ namespace Hful.File.Service
             DownloadFileDto dto = new()
             {
                 Stream = await provider.DownloadAsync(attachment),
-                Extension = Path.GetExtension(attachment.Name)
+                Extension = Path.GetExtension(attachment.Name),
+                Name = attachment.Name
             };
             return dto;
         }
