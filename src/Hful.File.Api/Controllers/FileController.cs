@@ -13,7 +13,7 @@ namespace Hful.File.Api.Controllers
     [Route("file")]
     public class FileController : ControllerBase
     {
-        private IAttachmentService _attachmentService;
+        private readonly IAttachmentService _attachmentService;
 
         public FileController(IAttachmentService attachmentService)
         {

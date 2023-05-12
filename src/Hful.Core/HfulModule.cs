@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Hful.Core.Module;
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hful.Core
 {
@@ -8,6 +10,11 @@ namespace Hful.Core
 
         public virtual void ConfigureServices(HfulModuleContext context)
         {
+        }
+
+        public virtual void InitApplication(HfulModuleAppContext context)
+        {
+
         }
 
         public void Config<T>(Action<T> opt) where T : class

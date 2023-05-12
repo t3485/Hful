@@ -1,6 +1,7 @@
 ﻿using Hful.Core;
 using Hful.Core.Options;
 using Hful.EntityFrameworkCore;
+using Hful.File.Api;
 using Hful.Iam.Api;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -8,29 +9,25 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
+using Hful.Extensions.Web;
+
 using System.Text;
 
 namespace Hful.Web
 {
     [HfulDependOn(typeof(EfModule),
-        typeof(IamApiModule))]
+        typeof(IamApiModule),
+        typeof(FileApiModule))]
     public class WebModule : HfulModule
     {
         public override void ConfigureServices(HfulModuleContext context)
         {
-            using var provider = context.Services.BuildServiceProvider();
-
-            var webOptions = provider.GetService<IOptions<WebOptions>>();
-            var mvcBuilder = context.Services.AddControllers();
-
-            if (webOptions != null && webOptions.Value != null)
+            Config<WebOptions>(x =>
             {
-                foreach (var item in webOptions.Value.ControllerAssemblies)
-                {
-                    mvcBuilder.AddApplicationPart(item);
-                }
-            }
+                x.AddControllerAssembly(typeof(WebModule).Assembly);
+            });
 
+            context.AddControllers();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             context.Services.AddEndpointsApiExplorer();

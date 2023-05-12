@@ -69,6 +69,7 @@ namespace Hful.Iam.Api.Controllers
         public CurrentUserDto GetCurrentUserAsync()
         {
             CurrentUserDto dto = new CurrentUserDto();
+            // todo
             dto.Id = _currentUser.Id;
 
             return dto;

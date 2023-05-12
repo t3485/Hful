@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "Hful.Application.Contracts": {
+    "Hful.File": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:14582;http://localhost:14593"
+      "applicationUrl": "https://localhost:2976;http://localhost:2977"
     }
   }
 }
