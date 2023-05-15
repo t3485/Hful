@@ -2,9 +2,9 @@
 {
     public class JobOptions
     {
-        public List<Type> JobTypes { get; set; } = new List<Type>();
+        public List<Type> JobTypes { get; } = new List<Type>();
 
-        public JobOptions AddJob<T>()
+        public JobOptions AddJob<T>() where T : HfulJob
         {
             JobTypes.Add(typeof(T));
             return this;

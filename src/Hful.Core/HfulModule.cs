@@ -12,6 +12,10 @@ namespace Hful.Core
         {
         }
 
+        public virtual void PostConfigureServices(HfulModuleContext context)
+        {
+        }
+
         public virtual void InitApplication(HfulModuleAppContext context)
         {
 
