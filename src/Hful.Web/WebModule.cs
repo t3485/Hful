@@ -15,7 +15,8 @@ using System.Text;
 
 namespace Hful.Web
 {
-    [HfulDependOn(typeof(EfModule),
+    [HfulDependOn(typeof(CoreModule),
+        typeof(EfModule),
         typeof(IamApiModule),
         typeof(FileApiModule))]
     public class WebModule : HfulModule

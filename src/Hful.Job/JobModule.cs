@@ -42,7 +42,6 @@ namespace Hful.Job
 
                 context.Services.AddQuartzServer(options =>
                 {
-                    // when shutting down we want jobs to complete gracefully
                     options.WaitForJobsToComplete = true;
                 });
             }
