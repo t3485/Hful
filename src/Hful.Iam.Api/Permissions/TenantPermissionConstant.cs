@@ -1,6 +1,6 @@
 ﻿namespace Hful.Iam.Api.Permissions
 {
-    public class TenantPermission
+    public class TenantPermissionConstant
     {
         public const string Tenant = "iam_tenant";
         public const string TenantSave = "iam_tenant_save";

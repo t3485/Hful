@@ -20,13 +20,13 @@ namespace Hful.Core.Application
             _asyncExecutor = asyncExecutor;
         }
 
-        public async Task<PageDto<TDto>> GetListAsync(TGetDto dto)
+        public virtual async Task<PageDto<TDto>> GetListAsync(TGetDto dto)
         {
             var data = await _asyncExecutor.ToListAsync(_userRepository.AsQueryable());
             return new PageDto<TDto>(_objectMapper.MapList<TEntity, TDto>(data));
         }
 
-        public async Task SaveUserAsync(TSaveDto dto)
+        public virtual async Task SaveUserAsync(TSaveDto dto)
         {
             var entity = await _userRepository.FindByIdAsync(dto.Id);
             if (entity != null)
@@ -41,7 +41,7 @@ namespace Hful.Core.Application
             }
         }
 
-        public async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
             await _userRepository.DeleteAsync(id);
         }
