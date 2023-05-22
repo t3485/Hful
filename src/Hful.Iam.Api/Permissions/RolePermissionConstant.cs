@@ -1,6 +1,6 @@
 ﻿namespace Hful.Iam.Api.Permissions
 {
-    public class RolePermission
+    public class RolePermissionConstant
     {
         public const string Role = "iam_role";
         public const string RoleSave = "iam_role_save";

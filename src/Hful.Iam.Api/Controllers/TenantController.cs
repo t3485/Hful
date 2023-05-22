@@ -21,7 +21,7 @@ namespace Hful.Iam.Api.Controllers
             _tenantService = tenantService;
         }
 
-        [Authorize(TenantPermission.Tenant)]
+        [Authorize(TenantPermissionConstant.Tenant)]
         [HttpGet]
         [Route("list")]
         public Task<PageDto<TenantDto>> GetListAsync([FromQuery] GetTenantListDto dto)
@@ -29,7 +29,7 @@ namespace Hful.Iam.Api.Controllers
             return _tenantService.GetListAsync(dto);
         }
 
-        [Authorize(TenantPermission.TenantSave)]
+        [Authorize(TenantPermissionConstant.TenantSave)]
         [HttpPost]
         [Route("save")]
         public Task SaveAsync([FromBody] SaveTenantDto dto)
@@ -37,7 +37,7 @@ namespace Hful.Iam.Api.Controllers
             return _tenantService.SaveUserAsync(dto);
         }
 
-        [Authorize(TenantPermission.TenantDelete)]
+        [Authorize(TenantPermissionConstant.TenantDelete)]
         [HttpDelete]
         [Route("del")]
         public Task DeleteAsync([FromQuery] Guid id)

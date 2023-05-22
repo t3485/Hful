@@ -19,7 +19,7 @@ namespace Hful.Iam.Api.Controllers
             _roleService = roleService;
         }
 
-        [Authorize(RolePermission.Role)]
+        [Authorize(RolePermissionConstant.Role)]
         [HttpGet]
         [Route("list")]
         public Task<PageDto<RoleDto>> GetListAsync([FromQuery] GetRoleListDto dto)
@@ -27,7 +27,7 @@ namespace Hful.Iam.Api.Controllers
             return _roleService.GetListAsync(dto);
         }
 
-        [Authorize(RolePermission.RoleSave)]
+        [Authorize(RolePermissionConstant.RoleSave)]
         [HttpPost]
         [Route("save")]
         public Task SaveAsync([FromBody] SaveRoleDto dto)
@@ -35,7 +35,7 @@ namespace Hful.Iam.Api.Controllers
             return _roleService.SaveUserAsync(dto);
         }
 
-        [Authorize(RolePermission.RoleDelete)]
+        [Authorize(RolePermissionConstant.RoleDelete)]
         [HttpDelete]
         [Route("del")]
         public Task DeleteAsync([FromQuery] Guid id)
