@@ -5,5 +5,7 @@ namespace Hful.File.Domain
     public class AttachmentUpload : BaseEntity
     {
         public Guid AttachmentId { get; set; }
+
+        public DateTime ExpiredTime { get; set; }
     }
 }

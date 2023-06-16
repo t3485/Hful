@@ -89,6 +89,7 @@ namespace Hful.File.Service
         {
             using var uow = _uowManager.Begin();
 
+            // todo 原子操作
             var upload = await _uploadRepository.FindByIdAsync(verifyKey);
             if (upload == null)
             {
