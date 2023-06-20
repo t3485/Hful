@@ -8,7 +8,7 @@ namespace Hful.File.Configuration
     {
         public static IAttachmentProvider DefaultProvider { get; set; } = new DefaultAttachmentProvider();
 
-        private static Dictionary<string, IAttachmentProvider> providers = new();
+        private static readonly Dictionary<string, IAttachmentProvider> providers = new();
 
         public static void AddProvider([NotNull] IAttachmentProvider provider)
         {
@@ -17,7 +17,7 @@ namespace Hful.File.Configuration
 
         internal static IAttachmentProvider? GetProvider(string name)
         {
-            return providers[name];
+            return providers.GetValueOrDefault(name);
         }
 
         static AttachmentConfiguration()
