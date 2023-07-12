@@ -7,19 +7,13 @@ namespace Hful.EntityFrameworkCore.UnitOfWork
     internal class UnitOfWork : IUnitOfWork
     {
         private readonly HfulContext _context;
-        private readonly IUowManager _uowManager;
 
         private IDbContextTransaction? _transaction;
 
-        public UnitOfWork(HfulContext context, IUowManager uowManager)
+        public UnitOfWork(HfulContext context, IDbContextTransaction transaction, IUowManager uowManager)
         {
             _context = context;
-            _uowManager = uowManager;
-        }
-
-        public async Task Begin()
-        {
-            _transaction = await _context.Database.BeginTransactionAsync();
+            _transaction = transaction;
         }
 
         public Task CompleteAsync()

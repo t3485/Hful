@@ -20,7 +20,7 @@ namespace Hful.Iam.Api.Context
 
         public bool IsSuperAdmin { get => true; }
 
-        public List<Role> Roles { get; }
+        public List<Guid> RoleIds { get; }
 
         private string? Find(string name)
         {

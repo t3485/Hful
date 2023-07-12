@@ -13,6 +13,7 @@ namespace Hful.EntityFrameworkCore.Extensions
     {
         public static void AddAutoRepository(this HfulModuleContext context)
         {
+            // todo 修改
             string fullName = Assembly.GetExecutingAssembly().FullName;
             string firstName = fullName[..(fullName.IndexOf('.') - 1)];
 

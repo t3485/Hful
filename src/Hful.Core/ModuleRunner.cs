@@ -7,22 +7,20 @@ namespace Hful.Core
 {
     internal class ModuleRunner<T>
     {
-        private readonly List<HfulModule> _instance;
-
-        public ModuleRunner()
-        {
-            _instance = GetModules(typeof(T)).Select(x => (HfulModule?)Activator.CreateInstance(x)).Where(x => x != null).ToList();
-        }
-
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            List<HfulModule> instance = GetModules(typeof(T))
+                .Select(x => (HfulModule)Activator.CreateInstance(x))
+                .Where(x => x != null).ToList();
+
             var context = new HfulModuleContext()
             {
                 Services = services,
                 Configuration = configuration
             };
-            foreach (var item in _instance)
+            foreach (var item in instance)
             {
+                item.Services = services;
                 item.ConfigureServices(context);
             }
         }
@@ -54,14 +52,14 @@ namespace Hful.Core
             return result;
         }
 
-        private static void MoveTo<T>(List<T> list, int fromIndex, int toIndex)
+        private static void MoveTo<TList>(List<TList> list, int fromIndex, int toIndex)
         {
             if (fromIndex == toIndex)
             {
                 return;
             }
 
-            T value = list[fromIndex];
+            TList value = list[fromIndex];
             for (int i = fromIndex; i > toIndex; i--)
                 list[i] = list[i - 1];
             list[toIndex] = value;

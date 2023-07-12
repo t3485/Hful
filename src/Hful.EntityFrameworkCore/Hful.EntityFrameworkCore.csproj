@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+	<Import Project="..\..\common.props" />
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -20,8 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hful.Domain\Hful.Domain.csproj" />
-    <ProjectReference Include="..\Hful.File\Hful.File.csproj" />
-    <ProjectReference Include="..\Hful.Iam\Hful.Iam.csproj" />
   </ItemGroup>
 
 </Project>

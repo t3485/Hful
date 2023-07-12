@@ -1,9 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+	<Import Project="..\..\common.props" />
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hful.File\Hful.File.csproj" />
+    <ProjectReference Include="..\Hful.Job\Hful.Job.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -7,6 +7,8 @@ using Hful.File.Domain;
 using Hful.File.Dto;
 using Hful.File.Providers;
 
+using System.Security.Cryptography;
+
 namespace Hful.File.Service
 {
     internal class AttachmentService : IAttachmentService
@@ -42,19 +44,32 @@ namespace Hful.File.Service
         {
             using var uow = _uowManager.Begin();
 
-            Attachment attachment = new Attachment();
-            attachment.Provider = provider.Name;
-            attachment.Name = name;
-            attachment.TenantId = tenantId;
+            Attachment attachment = new()
+            {
+                Provider = provider.Name,
+                Name = name,
+                TenantId = tenantId,
+                Hash = await ComputeHashAsync(stream)
+            };
 
             try
             {
-                await provider.UploadAsync(attachment, stream);
-                await _attachmentRepository.SaveAsync(attachment);
+                Attachment? same = await _asyncExecutor.FirstOrDefaultAsync(_attachmentRepository.AsQueryable().Where(x => x.Hash == attachment.Hash));
+
+                if (same == null)
+                {
+                    await provider.UploadAsync(attachment, stream);
+                    await _attachmentRepository.SaveAsync(attachment);
+                }
+                else
+                {
+                    attachment = same;
+                }
 
                 var upload = new AttachmentUpload
                 {
-                    AttachmentId = attachment.Id
+                    AttachmentId = attachment.Id,
+                    Name = name
                 };
                 await _uploadRepository.SaveAsync(upload);
 
@@ -89,6 +104,7 @@ namespace Hful.File.Service
         {
             using var uow = _uowManager.Begin();
 
+            // todo 原子操作
             var upload = await _uploadRepository.FindByIdAsync(verifyKey);
             if (upload == null)
             {
@@ -143,7 +159,7 @@ namespace Hful.File.Service
                 AttachmentId = x.Id,
                 BusinessId = provider.Id,
                 BusinessType = provider.Type,
-                TenantId = x.TenantId
+                TenantId = x.TenantId,
             }).ToList();
             await _relationRepository.SaveAsync(relation);
 
@@ -186,20 +202,27 @@ namespace Hful.File.Service
             await uow.CompleteAsync();
         }
 
-        public async ValueTask<Stream> DownloadFileAsync(Guid attachmentId)
+        public async Task<DownloadFileDto?> DownloadFileAsync(Guid attachmentId)
         {
             var attachment = await _attachmentRepository.FindByIdAsync(attachmentId);
             if (attachment == null)
             {
-                throw new InvalidOperationException();
+                return null;
             }
 
             var provider = AttachmentConfiguration.GetProvider(attachment.Provider);
             if (provider == null)
             {
-                throw new InvalidOperationException();
+                return null;
             }
-            return await provider.DownloadAsync(attachment);
+
+            DownloadFileDto dto = new()
+            {
+                Stream = await provider.DownloadAsync(attachment),
+                Extension = Path.GetExtension(attachment.Name),
+                Name = attachment.Name
+            };
+            return dto;
         }
 
         public async Task<List<AttachmentDto>> GetAsync(IBusinessProvider provider)
@@ -209,6 +232,12 @@ namespace Hful.File.Service
 
             var attachment = await _attachmentRepository.FindByIdAsync(data.Select(x => x.Id));
             return _objectMapper.Map<List<Attachment>, List<AttachmentDto>>(attachment);
+        }
+
+        private static async Task<string> ComputeHashAsync(Stream stream)
+        {
+            using MD5 md5 = MD5.Create();
+            return Convert.ToHexString(await md5.ComputeHashAsync(stream));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Hful.Domain.Shared;
+using Hful.EntityFrameworkCore.ModelCreation;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -27,7 +28,7 @@ namespace Hful.EntityFrameworkCore.Extensions
             }
         }
 
-        public static void ConfigAuditedProperty<TEntity>(this EntityTypeBuilder<TEntity> b) where TEntity : class
+        public static void ConfigAuditedProperty(this EntityTypeBuilder b)
         {
             b.Property("CreatedTime").IsRequired();
             b.Property("CreatedBy").IsRequired().HasMaxLength(GuidLength);

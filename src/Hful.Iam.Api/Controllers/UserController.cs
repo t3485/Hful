@@ -33,6 +33,7 @@ namespace Hful.Iam.Api.Controllers
         [Authorize(UserPermissionConstant.UserSave)]
         [HttpPost]
         [Route("save")]
+        [DataFilter<User>(UserPermissionConstant.UserSave)]
         public Task SaveAsync([FromBody] SaveUserDto dto)
         {
             return _userService.SaveUserAsync(dto);
@@ -41,6 +42,7 @@ namespace Hful.Iam.Api.Controllers
         [Authorize(UserPermissionConstant.UserDelete)]
         [HttpDelete]
         [Route("del")]
+        [DataFilter<User>(UserPermissionConstant.UserDelete)]
         public Task DeleteAsync([FromQuery] Guid id)
         {
             return _userService.DeleteAsync(id);

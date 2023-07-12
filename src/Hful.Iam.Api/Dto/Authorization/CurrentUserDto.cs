@@ -1,7 +1,15 @@
-﻿namespace Hful.Iam.Api.Dto.Authorization
+﻿using Hful.Domain.Iam;
+
+namespace Hful.Iam.Api.Dto.Authorization
 {
     public class CurrentUserDto
     {
-        public string Username { get; set; }
+        public Guid? Id { get; set; }
+
+        public string? UserName { get; set; }
+
+        public bool IsSuperAdmin { get; set; }
+
+        public List<Role>? Roles { get; set; }
     }
 }

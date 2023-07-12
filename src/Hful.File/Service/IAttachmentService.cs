@@ -20,7 +20,7 @@ namespace Hful.File.Service
 
         Task DelAttachmentAsync(Guid id);
 
-        ValueTask<Stream> DownloadFileAsync(Guid attachmentId);
+        Task<DownloadFileDto?> DownloadFileAsync(Guid attachmentId);
 
         Task<List<AttachmentDto>> GetAsync(IBusinessProvider provider);
     }

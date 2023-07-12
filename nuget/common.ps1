@@ -75,17 +75,16 @@ $solutions = (
 # List of projects
 $projects = (
 
-    "src/Hful.Application",
-    "src/Hful.Application.Contracts",
     "src/Hful.Core",
     "src/Hful.Core.Application",
-    "src/Hful.Core.Job",
     "src/Hful.Domain",
     "src/Hful.Domain.Shared",
     "src/Hful.EntityFrameworkCore",
     "src/Hful.File",
     "src/Hful.File.Api",
+    "src/Hful.File.Job",
     "src/Hful.Iam",
     "src/Hful.Iam.Api",
-    "src/Hful.Workflow"
+    "src/Hful.Workflow",
+    "src/Hful.Extensions.Web"
 )
