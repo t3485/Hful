@@ -1,13 +1,14 @@
 ﻿using Hful.Domain.Iam;
+using Hful.EntityFrameworkCore;
 using Hful.Iam.Domain;
 
-namespace Hful.EntityFrameworkCore
+namespace Hful.Web
 {
     public class DbInitializer
     {
         public static void Initialize(HfulContext context)
         {
-            if (!context.Users.Any())
+            if (!context.Set<User>().Any())
             {
                 var user = new User
                 {
@@ -15,21 +16,21 @@ namespace Hful.EntityFrameworkCore
                     Password = "123456",
                     DisplayName = "admin",
                 };
-                context.Users.Add(user);
+                context.Set<User>().Add(user);
 
                 var role = new Role
                 {
                     Code = "admin",
                     Name = "admin"
                 };
-                context.Roles.Add(role);
+                context.Set<Role>().Add(role);
 
                 var tenant = new Tenant
                 {
                     Code = "Test",
                     Name = "Test"
                 };
-                context.Tenants.Add(tenant);
+                context.Set<Tenant>().Add(tenant);
 
                 var menus = new List<Menu>()
                 {
@@ -49,7 +50,7 @@ namespace Hful.EntityFrameworkCore
                         Code = "menu3",
                     }
                 };
-                context.Menus.AddRange(menus);
+                context.Set<Menu>().AddRange(menus);
 
                 menus = new List<Menu>()
                 {
@@ -72,7 +73,7 @@ namespace Hful.EntityFrameworkCore
                         ParentId = menus[0].Id
                     }
                 };
-                context.Menus.AddRange(menus);
+                context.Set<Menu>().AddRange(menus);
 
                 context.SaveChanges();
             }

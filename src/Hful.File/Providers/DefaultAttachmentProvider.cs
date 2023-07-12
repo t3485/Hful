@@ -70,6 +70,11 @@ namespace Hful.File.Providers
             }
         }
 
+        public async Task<bool> EqualsAsync(Stream x, Attachment y)
+        {
+            return false;
+        }
+
         private string GeneratePath(Attachment attachment)
         {
             string path;

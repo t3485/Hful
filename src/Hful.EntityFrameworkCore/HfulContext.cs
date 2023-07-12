@@ -1,8 +1,6 @@
-﻿using Hful.Domain.Iam;
-using Hful.Domain.Shared;
-using Hful.EntityFrameworkCore.Extensions;
-using Hful.File.Domain;
-using Hful.Iam.Domain;
+﻿using Hful.Domain.Shared;
+using Hful.Domain.Shared.ModelCreation;
+using Hful.EntityFrameworkCore.ModelCreation;
 using Hful.Iam.Service;
 
 using Microsoft.EntityFrameworkCore;
@@ -18,25 +16,14 @@ namespace Hful.EntityFrameworkCore
         {
             _currentUser = currentUser;
         }
-
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<RolePermission> RolePermissions { get; set; }
-        public DbSet<UserPermission> UserPermissions { get; set; }
-        public DbSet<Menu> Menus { get; set; }
-        public DbSet<Tenant> Tenants { get; set; }
-
-
-        public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<AttachmentRelation> AttachmentRelations { get; set; }
-        public DbSet<AttachmentUpload> AttachmentUploads { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ConfigureUser();
-            modelBuilder.ConfigureAttachment();
+            IModelBuilder builder = new HfulModelBuilder(modelBuilder);
+            foreach (var item in ModelExtension.Actions)
+            {
+                item.Invoke(builder);
+            }
         }
 
         public override int SaveChanges()

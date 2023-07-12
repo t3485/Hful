@@ -7,5 +7,9 @@ namespace Hful.File.Domain
         public Guid AttachmentId { get; set; }
 
         public DateTime ExpiredTime { get; set; }
+
+        public string? Name { get; set; }
+
+        public Guid? TenantId { get; set; }
     }
 }

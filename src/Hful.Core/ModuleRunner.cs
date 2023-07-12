@@ -52,14 +52,14 @@ namespace Hful.Core
             return result;
         }
 
-        private static void MoveTo<T>(List<T> list, int fromIndex, int toIndex)
+        private static void MoveTo<TList>(List<TList> list, int fromIndex, int toIndex)
         {
             if (fromIndex == toIndex)
             {
                 return;
             }
 
-            T value = list[fromIndex];
+            TList value = list[fromIndex];
             for (int i = fromIndex; i > toIndex; i--)
                 list[i] = list[i - 1];
             list[toIndex] = value;

@@ -40,7 +40,7 @@ namespace Hful.Iam.Service
 
             if (!_currentUser.IsSuperAdmin)
             {
-                var roleIds = _currentUser.Roles.Select(x => x.Id);
+                var roleIds = _currentUser.RoleIds;
                 var rolePermissionIds = (await _asyncExecutor.ToListAsync(_rolePermissionRepository.AsQueryable().Where(x => roleIds.Contains(x.RoleId))))
                     .Select(x => x.PermissionId);
 
