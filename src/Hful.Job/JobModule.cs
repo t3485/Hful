@@ -38,6 +38,7 @@ namespace Hful.Job
                                 .WithCronSchedule(cron));
                         }
                     }
+                    q.UseMicrosoftDependencyInjectionJobFactory();
                 });
 
                 context.Services.AddQuartzServer(options =>

@@ -8,7 +8,7 @@ namespace Hful.EntityFrameworkCore.UnitOfWork
     {
         private readonly HfulContext _context;
 
-        private IDbContextTransaction? _transaction;
+        private IDbContextTransaction _transaction;
 
         public UnitOfWork(HfulContext context, IDbContextTransaction transaction, IUowManager uowManager)
         {

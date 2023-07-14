@@ -12,13 +12,15 @@ using Microsoft.OpenApi.Models;
 using Hful.Extensions.Web;
 
 using System.Text;
+using Hful.File.Job;
 
 namespace Hful.Web
 {
     [HfulDependOn(typeof(CoreModule),
         typeof(EfModule),
         typeof(IamApiModule),
-        typeof(FileApiModule))]
+        typeof(FileApiModule),
+        typeof(FileJobModule))]
     public class WebModule : HfulModule
     {
         public override void ConfigureServices(HfulModuleContext context)

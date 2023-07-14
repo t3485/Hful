@@ -1,4 +1,5 @@
-﻿using Hful.Core.Mapper;
+﻿using Hful.Core.Context;
+using Hful.Core.Mapper;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,8 @@ namespace Hful.Core
             name = name.Substring(0, name.IndexOf('.'));
 
             context.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.StartsWith(name)));
+
+            context.Services.AddSingleton<ICurrentUser, DefaultCurrentUser>();
         }
     }
 }

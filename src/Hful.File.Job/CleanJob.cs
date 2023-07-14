@@ -8,9 +8,9 @@ namespace Hful.File.Job
 {
     public class CleanJob : HfulJob
     {
-        public const string Key = "";
-        public const string Group = "";
-        public const string Cron = "";
+        public const string Key = "CleanJob";
+        public const string Group = "CleanJob";
+        public const string Cron = "* * 0/1 * * ? *";
 
         private readonly IAttachmentService attachmentService;
         private readonly IRepository<AttachmentUpload> _uploadRepository;

@@ -1,4 +1,4 @@
-﻿namespace Hful.Iam.Service
+﻿namespace Hful.Core.Context
 {
     public interface ICurrentTenant
     {

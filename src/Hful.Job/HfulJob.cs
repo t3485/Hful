@@ -2,6 +2,7 @@
 
 namespace Hful.Job
 {
+    [DisallowConcurrentExecution]
     public abstract class HfulJob : IJob
     {
         public abstract Task Execute(HfulJobContext context);

@@ -86,5 +86,6 @@ $projects = (
     "src/Hful.Iam",
     "src/Hful.Iam.Api",
     "src/Hful.Workflow",
-    "src/Hful.Extensions.Web"
+    "src/Hful.Extensions.Web",
+    "src/Hful.Job"
 )

@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Hful.EntityFrameworkCore\Hful.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Hful.Extensions.Web\Hful.Extensions.Web.csproj" />
     <ProjectReference Include="..\Hful.File.Api\Hful.File.Api.csproj" />
+    <ProjectReference Include="..\Hful.File.Job\Hful.File.Job.csproj" />
     <ProjectReference Include="..\Hful.Iam.Api\Hful.Iam.Api.csproj" />
   </ItemGroup>
 

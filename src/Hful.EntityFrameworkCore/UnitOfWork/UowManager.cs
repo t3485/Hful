@@ -8,8 +8,6 @@ namespace Hful.EntityFrameworkCore.UnitOfWork
     {
         private readonly HfulContext _context;
 
-        private IDbContextTransaction? _transaction;
-
         public UowManager(HfulContext context)
         {
             _context = context;
@@ -22,15 +20,8 @@ namespace Hful.EntityFrameworkCore.UnitOfWork
                 return new ChildUnitOfWork();
             }
 
-            try
-            {
-                return Current = new UnitOfWork(_context, _transaction, this);
-            }
-            finally
-            {
-                _transaction.Rollback();
-                _transaction.Dispose();
-            }
+            var transaction = _context.Database.BeginTransaction();
+            return Current = new UnitOfWork(_context, transaction, this);
         }
 
         public async ValueTask<IUnitOfWork> BeginAsync()

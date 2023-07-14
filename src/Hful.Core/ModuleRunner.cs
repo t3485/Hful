@@ -18,10 +18,17 @@ namespace Hful.Core
                 Services = services,
                 Configuration = configuration
             };
+
             foreach (var item in instance)
             {
                 item.Services = services;
                 item.ConfigureServices(context);
+            }
+
+            foreach (var item in instance)
+            {
+                item.Services = services;
+                item.PostConfigureServices(context);
             }
         }
 
