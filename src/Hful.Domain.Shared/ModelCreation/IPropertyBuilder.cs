@@ -6,6 +6,14 @@ namespace Hful.Domain.Shared.ModelCreation
     {
         IPropertyBuilder<TProperty> IsRequired();
 
-        public IPropertyBuilder<TProperty> HasMaxLength(int n);
+        IPropertyBuilder<TProperty> HasMaxLength(int n);
+
+        IPropertyBuilder<TProperty> HasPrecision(int precision);
+
+        IPropertyBuilder<TProperty> HasPrecision(int precision, int scale);
+
+        IPropertyBuilder<TProperty> HasDefaultValue(object? value);
+
+        IPropertyBuilder<TProperty> HasComment(string? comment);
     }
 }
