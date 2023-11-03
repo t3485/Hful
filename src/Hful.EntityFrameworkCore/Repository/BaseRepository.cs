@@ -5,6 +5,8 @@ using Hful.Domain.Shared;
 
 using Microsoft.EntityFrameworkCore;
 
+using System.Linq.Expressions;
+
 namespace Hful.EntityFrameworkCore.Repository
 {
     internal class BaseRepository<T> : IRepository<T> where T : BaseEntity
@@ -62,14 +64,37 @@ namespace Hful.EntityFrameworkCore.Repository
                 CheckAndSetId(item);
             }
 
-            var model = context.Model.FindEntityType(typeof(T));
-            var index = model.GetIndexes().Where(x => x.IsUnique).ToList();
-            var indexProperty = index.SelectMany(x => x.Properties).Select(x => typeof(T).GetProperty(x.Name)).ToList();
+            await context.BulkInsertOrUpdateAsync(entities);
+            await context.BulkSaveChangesAsync();
+        }
 
-            await context.BulkInsertOrUpdateAsync(entities, new BulkConfig()
+        public async Task SaveAsync<V>(List<T> entities, Expression<Func<T, V>> f)
+        {
+            foreach (var item in entities)
             {
-                UpdateByProperties = indexProperty.Select(x => x.Name).ToList()
-            });
+                CheckAndSetId(item);
+            }
+
+            //var model = context.Model.FindEntityType(typeof(T));
+            //var index = model.GetIndexes().Where(x => x.IsUnique).ToList();
+            //var indexProperty = index.SelectMany(x => x.Properties).Select(x => typeof(T).GetProperty(x.Name)).ToList();
+
+            //await context.BulkInsertOrUpdateAsync(entities, new BulkConfig()
+            //{
+            //    UpdateByProperties = indexProperty.Select(x => x.Name).ToList()
+            //});
+
+            List<string> update = new List<string>();
+
+            if (f.Body is NewExpression newExp)
+            {
+                update = newExp.Arguments.Select(x => (x as MemberExpression).Member.Name).ToList();
+            }
+            else if (f.Body is MemberExpression memExp)
+            {
+                update = new List<string> { memExp.Member.Name };
+            }
+
             await context.BulkSaveChangesAsync();
         }
 

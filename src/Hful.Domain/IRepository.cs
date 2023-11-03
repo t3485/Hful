@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,8 @@ namespace Hful.Domain
         Task DeleteAsync(IEnumerable<Guid> id);
 
         Task SaveAsync(List<T> entities);
+
+        Task SaveAsync<V>(List<T> entities, Expression<Func<T, V>> f);
 
         Task<ITransaction> BeginTransactionAsync();
     }
