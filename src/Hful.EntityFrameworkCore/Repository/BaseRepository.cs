@@ -62,15 +62,21 @@ namespace Hful.EntityFrameworkCore.Repository
                 CheckAndSetId(item);
             }
 
-            var model = context.Model.FindEntityType(typeof(T));
-            var index = model.GetIndexes().Where(x => x.IsUnique).ToList();
-            var indexProperty = index.SelectMany(x => x.Properties).Select(x => typeof(T).GetProperty(x.Name)).ToList();
+            //var model = context.Model.FindEntityType(typeof(T));
+            //var index = model.GetIndexes().Where(x => x.IsUnique).ToList();
+            //var indexProperty = index.SelectMany(x => x.Properties).Select(x => typeof(T).GetProperty(x.Name)).ToList();
 
-            await context.BulkInsertOrUpdateAsync(entities, new BulkConfig()
+            //await context.BulkInsertOrUpdateAsync(entities, new BulkConfig()
+            //{
+            //    UpdateByProperties = indexProperty.Select(x => x.Name).ToList()
+            //});
+            //await context.BulkSaveChangesAsync();
+
+            foreach (var item in entities)
             {
-                UpdateByProperties = indexProperty.Select(x => x.Name).ToList()
-            });
-            await context.BulkSaveChangesAsync();
+                context.Update(item);
+            }
+            await context.SaveChangesAsync();
         }
 
         public async Task<T?> FindByIdAsync(Guid id)
